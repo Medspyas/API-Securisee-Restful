@@ -32,5 +32,5 @@ class Contributor(models.Model):
     ROLES_TYPE = [(AUTHOR, 'Author'), (CONTRIBUTOR, 'Contributor')]
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="contributors")
     role = models.CharField(max_length=12, choices=ROLES_TYPE)
