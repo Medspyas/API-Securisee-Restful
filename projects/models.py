@@ -23,6 +23,8 @@ class Project(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_time = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.title
 
 class Contributor(models.Model):
 

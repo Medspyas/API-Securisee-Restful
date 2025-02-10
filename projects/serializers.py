@@ -1,5 +1,8 @@
 from rest_framework import serializers
 from .models import Project, Contributor
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class ProjectSerializer(serializers.ModelSerializer):
     author = serializers.StringRelatedField()
@@ -12,7 +15,24 @@ class ProjectSerializer(serializers.ModelSerializer):
 
 
 class ContributorSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
+    project = serializers.StringRelatedField()
     class Meta:
         model = Contributor
         fields = ['id', 'user', 'project', 'role']
         read_only_fields = ['id']
+
+class AddProjectSerializer(serializers.ModelSerializer):   
+
+    user = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='username')
+    project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
+    
+
+    class Meta:        
+        model = Contributor
+        fields = ['id', 'user', 'project', 'role']
+
+
+
+
+    
