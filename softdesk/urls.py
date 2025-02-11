@@ -20,6 +20,7 @@ from rest_framework.routers import DefaultRouter
 from users.views import UserViewSet
 from projects.views import ProjectViewSet, ContributorViewSet, AddContributorViewSet
 from issues.views import IssueViewSet
+from comments.views import CommentViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
@@ -29,6 +30,7 @@ router.register('projects', ProjectViewSet, basename='project')
 router.register('contributors', ContributorViewSet, basename='contributor')
 router.register('add-contributors', AddContributorViewSet, basename='add-contributor')
 router.register('issues', IssueViewSet, basename='issue')
+router.register('comments', CommentViewSet, basename='comment')
 
 
 urlpatterns = [
