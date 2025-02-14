@@ -1,13 +1,14 @@
-from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.exceptions import PermissionDenied
 from .models import Project, Contributor
 from .serializers import ProjectSerializer, ContributorSerializer, AddProjectSerializer
+from softdesk.permissions import IsprojectAuthorOrContributor
 
 class ProjectViewSet(ModelViewSet):
     serializer_class = ProjectSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsprojectAuthorOrContributor]
 
     def get_queryset(self):
         user_projects = Project.objects.filter(author=self.request.user) 
@@ -22,7 +23,7 @@ class ProjectViewSet(ModelViewSet):
         project = serializer.save(author=self.request.user)
 
         Contributor.objects.create(user=self.request.user, project=project, role='author')
-        print(f"Contributeur ajouté : {self.request.user} pour le projet {project.title}")
+        print(f"Contributeur ajouté : {self.request.user} pour le projet {project.title}")   
 
 
 

@@ -3,14 +3,15 @@ from .serializers import IssueSerializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied
+from softdesk.permissions import IsIssueAuthorOrContributor 
 
 
 class IssueViewSet(ModelViewSet):
     serializer_class = IssueSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsIssueAuthorOrContributor]
 
     def get_queryset(self):
-        return Issue.objects.filter(project__contributors__user=self.request.user)
+        return Issue.objects.select_related('author', 'project').filter(project__contributors__user=self.request.user)
     
     def perform_create(self, serializer):
 
@@ -20,6 +21,8 @@ class IssueViewSet(ModelViewSet):
             raise PermissionDenied("Vous devez être contributeur du projet pour crée une issue")
         
         assignee = serializer.validated_data.get('assignee', None)
-        if assignee and not Contributor.objects.filter(user=self.request.user, project=project).exists():
+        if assignee and not Contributor.objects.filter(user=assignee, project=project).exists():
             raise PermissionDenied("L'assigné doit être contributeur du projet")
         serializer.save(author=self.request.user)
+
+  
