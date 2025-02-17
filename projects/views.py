@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.exceptions import PermissionDenied
 from .models import Project, Contributor
 from .serializers import ProjectSerializer, ContributorSerializer, AddProjectSerializer
 from softdesk.permissions import IsprojectAuthorOrContributor
