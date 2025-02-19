@@ -14,23 +14,17 @@ class ProjectSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'author', 'created_time']
 
 
-class ContributorSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField()
-    project = serializers.StringRelatedField()
+class ContributorSerializer(serializers.ModelSerializer):    
+    user = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='username')
+    project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
     class Meta:
         model = Contributor
         fields = ['id', 'user', 'project', 'role']
-        read_only_fields = ['id']
+        read_only_fields = ['id', 'user']
 
-class AddProjectSerializer(serializers.ModelSerializer):   
+   
 
-    user = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='username')
-    project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
-    
 
-    class Meta:        
-        model = Contributor
-        fields = ['id', 'user', 'project', 'role']
 
 
 
