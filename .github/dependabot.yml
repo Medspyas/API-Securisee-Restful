@@ -1,0 +1,13 @@
+version : 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-request-limit: 5
+    reviewers:
+      - "Medspyas"
+    labels:
+      - "dependencies"
+    assignees:
+      - "Medspyas"
