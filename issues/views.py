@@ -3,8 +3,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from softdesk.permissions import IsIssueAuthorOrContributor
-
-from .models import Contributor, Issue
+from projects.models import Contributor
+from .models import Issue
 from .serializers import IssueSerializer
 
 
