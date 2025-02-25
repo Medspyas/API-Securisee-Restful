@@ -7,20 +7,58 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Issue',
+            name="Issue",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=100)),
-                ('description', models.CharField(max_length=1000)),
-                ('priority', models.CharField(choices=[('low', 'Low'), ('medium', 'Medium'), ('high', 'High')], max_length=7)),
-                ('tag', models.CharField(choices=[('bug', 'Bug'), ('feature', 'Feature'), ('task', 'Task')], max_length=8)),
-                ('status', models.CharField(choices=[('To Do', 'To Do'), ('In Progress', 'In Progress'), ('Finished', 'Finished')], default='To Do', max_length=12)),
-                ('created_time', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=100)),
+                ("description", models.CharField(max_length=1000)),
+                (
+                    "priority",
+                    models.CharField(
+                        choices=[
+                            ("low", "Low"),
+                            ("medium", "Medium"),
+                            ("high", "High"),
+                        ],
+                        max_length=7,
+                    ),
+                ),
+                (
+                    "tag",
+                    models.CharField(
+                        choices=[
+                            ("bug", "Bug"),
+                            ("feature", "Feature"),
+                            ("task", "Task"),
+                        ],
+                        max_length=8,
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("To Do", "To Do"),
+                            ("In Progress", "In Progress"),
+                            ("Finished", "Finished"),
+                        ],
+                        default="To Do",
+                        max_length=12,
+                    ),
+                ),
+                ("created_time", models.DateTimeField(auto_now_add=True)),
             ],
         ),
     ]

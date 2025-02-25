@@ -1,6 +1,17 @@
 from django.contrib import admin
-from .models import User
 from django.contrib.auth.admin import UserAdmin
 
+from .models import User
 
-admin.site.register(User, UserAdmin)
+
+@admin.register(User)
+class CustomUserAdmin(UserAdmin):
+    list_display = (
+        "id",
+        "username",
+        "email",
+        "age",
+        "can_data_be_shared",
+        "can_be_contacted",
+    )
+    search_fields = ("id", "username", "email")
