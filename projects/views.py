@@ -66,6 +66,15 @@ class ContributorViewSet(ModelViewSet):
             raise PermissionDenied("Cet utilisateur est déjà contribteur.")
         serializer.save()
 
+    def update(self, request, *args, **kwargs):
+        contributor = self.get_object()
+        if contributor.project.author != request.user:
+            return Response(
+                {"detail": "Seul l'auteur du projet peut modifier un contributeur."},
+                status=403,
+            )
+        return super().update(request, *args, **kwargs)
+
     def destroy(self, request, *args, **kwargs):
         # Permet à l'auteur de supprimer un contributeur.
         contributor = self.get_object()
