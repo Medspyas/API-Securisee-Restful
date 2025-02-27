@@ -39,6 +39,17 @@ class UserViewSet(ModelViewSet):
                 status=status.HTTP_403_FORBIDDEN,
             )
         return super().destroy(request, *args, **kwargs)
+    
+    def update(self, request, *args, **kwargs):
+         # Permet à l'utilisateur de modifier son compte.
+        user = self.get_object()
+        if user != request.user:
+            return Response(
+                {"error": "Vous ne pouvez modifier que votre propre compte."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        return super().update(request, *args, **kwargs)
 
 
 class RegisterView(CreateAPIView):
